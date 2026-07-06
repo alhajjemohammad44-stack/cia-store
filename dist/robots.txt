@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://cia-store-arabic.surge.sh/sitemap.xml
+Sitemap: https://alhajjemohammad44-stack.github.io/cia-store/sitemap.xml

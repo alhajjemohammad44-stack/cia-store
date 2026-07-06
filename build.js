@@ -544,6 +544,40 @@ ${CART_JS}
   });
 })();
 </script>
+
+/* ═══ CIA STORE — Live GitHub Data ═══ */
+// Load products from GitHub so customers see latest immediately
+var GH_URL = "https://raw.githubusercontent.com/alhajjemohammad44-stack/cia-store/main/data/products.json";
+(function(){
+  fetch(GH_URL).then(function(r){ if(r.ok) return r.json(); }).then(function(data){
+    if(data && data.products && data.products.length > 0){
+      try{localStorage.setItem("cia_github_products",JSON.stringify(data.products));}catch(e){}
+      try{localStorage.setItem("cia_github_categories",JSON.stringify(data.categories));}catch(e){}
+      // Re-render if shop page is open
+      if(window.renderProducts) window.renderProducts();
+    }
+  }).catch(function(){});
+})();
+
+// Enhanced loadProducts - GitHub data takes priority
+var _lp = window.loadProducts || function(){return [];};
+window.loadProducts = function(){
+  try{
+    var gh = JSON.parse(localStorage.getItem("cia_github_products") || "[]");
+    if(gh.length > 0) return gh;
+  }catch(e){}
+  return _lp();
+};
+
+var _lc = window.loadCategories || function(){return [];};
+window.loadCategories = function(){
+  try{
+    var gh = JSON.parse(localStorage.getItem("cia_github_categories") || "[]");
+    if(gh.length > 0) return gh;
+  }catch(e){}
+  return _lc();
+};
+
 </body></html>`;
   return _html;
 }
@@ -1913,6 +1947,14 @@ for (const page of pages) {
 // Copy admin.js
 const adminJsSrc = path.join(__dirname, 'admin.js');
 const adminJsDst = path.join(DIST, 'admin', 'admin.js');
+// Copy data/products.json to dist
+var dataSrc2 = path.join(__dirname, 'data', 'products.json');
+var dataDst2 = path.join(DIST, 'data', 'products.json');
+if (fs.existsSync(dataSrc2)) {
+  fs.mkdirSync(path.dirname(dataDst2), { recursive: true });
+  fs.copyFileSync(dataSrc2, dataDst2);
+  console.log('  ✓ data/products.json');
+}
 if (fs.existsSync(adminJsSrc)) {
   fs.copyFileSync(adminJsSrc, adminJsDst);
   console.log('  ✓ admin/admin.js');
