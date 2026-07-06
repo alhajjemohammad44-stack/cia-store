@@ -451,7 +451,7 @@ ${ogImg ? `<meta name="twitter:image" content="${ogImg}">` : ''}
 // ═══════════════════════════════════════════════════
 
 function html(title, desc, content, path='/', extra='') {
-  return `<!DOCTYPE html>
+  let _html = `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
@@ -520,11 +520,11 @@ ${CART_JS}
           const session = { email: 'owner@ciastore.com', name: 'Owner', role: 'owner', loginTime: Date.now() };
           localStorage.setItem('cia_session', JSON.stringify(session));
           result.innerHTML+= ' جاري التحويل...';
-          setTimeout(()=>{ window.location.href='/admin/'; }, 1000);
+          setTimeout(()=>{ window.location.href='/cia-store/admin/'; }, 1000);
         } else if(valid.type==='admin'){
           const session = { email: 'admin@ciastore.com', name: 'Admin', role: 'admin', loginTime: Date.now() };
           localStorage.setItem('cia_session', JSON.stringify(session));
-          setTimeout(()=>{ window.location.href='/admin/'; }, 1000);
+          setTimeout(()=>{ window.location.href='/cia-store/admin/'; }, 1000);
         } else if(valid.type==='discount'){
           localStorage.setItem('cia_discount', JSON.stringify({ code, percent: valid.discount }));
           result.innerHTML+= ' تمت الإضافة إلى سلة المشتريات!';
@@ -545,6 +545,7 @@ ${CART_JS}
 })();
 </script>
 </body></html>`;
+  return _html;
 }
 
 // ═══════════════════════════════════════════════════
@@ -553,8 +554,8 @@ ${CART_JS}
 
 function header(active='') {
   const links = [
-    ['الرئيسية','/'],
-    ['المتجر','/shop/'],
+    ['الرئيسية','/cia-store/'],
+    ['المتجر','/cia-store/shop/'],
   ];
   return `<header class="header" role="banner">
     <div class="container header-inner">
@@ -566,7 +567,7 @@ function header(active='') {
         ${links.map(([l,h])=>`<a href="${h}" class="nav-link${active===h?' active':''}"${active===h?' aria-current="page"':''}>${l}</a>`).join('')}
       </nav>
       <div class="header-actions" role="toolbar" aria-label="إجراءات المستخدم">
-        <a href="/dashboard/" class="nav-link" aria-label="لوحة التحكم">👤</a>
+        <a href="/cia-store/dashboard/" class="nav-link" aria-label="لوحة التحكم">👤</a>
         <button type="button" id="codBtn" class="btn btn-sm btn-glow" style="font-family:'Orbitron',sans-serif;letter-spacing:.03em;font-size:.75rem">🎫 COD</button>
       </div>
     </div>
@@ -576,7 +577,7 @@ function header(active='') {
 function footer() {
   const cols = [
     ['المتجر', [
-      ['جميع المنتجات','/shop/'],
+      ['جميع المنتجات','/cia-store/shop/'],
     ]],
     ['الدعم', [
       ['اتصل بنا','/contact/'],
@@ -960,8 +961,8 @@ function buildHome() {
             <h1 class="hero-title">ارفع مستواك<br>في <span class="text-gradient glow">عالم الألعاب</span></h1>
             <p class="hero-desc">منتجات رقمية متميزة — حسابات، Robux، عناصر نادرة. <strong class="text-electric">توصيل فوري</strong>، آمن 100%.</p>
             <div class="btn-group" style="display:flex;flex-wrap:wrap;gap:1rem" role="group" aria-label="روابط سريعة">
-              <a href="/shop/" class="btn btn-lg btn-primary">🚀 استعرض المتجر</a>
-              <a href="/auth/register/" class="btn btn-lg btn-outline">📝 إنشاء حساب</a>
+              <a href="/cia-store/shop/" class="btn btn-lg btn-primary">🚀 استعرض المتجر</a>
+              <a href="/cia-store/auth/register/" class="btn btn-lg btn-outline">📝 إنشاء حساب</a>
             </div>
           </div>
         </div>
@@ -987,7 +988,7 @@ function buildHome() {
         </div>
         <div class="product-grid" role="list">${feat.map(card).join('')}</div>
         <div style="text-align:center;margin-top:3rem">
-          <a href="/shop/" class="btn btn-lg btn-primary">عرض الكل ←</a>
+          <a href="/cia-store/shop/" class="btn btn-lg btn-primary">عرض الكل ←</a>
         </div>
       </div></section>
 
@@ -1025,7 +1026,7 @@ function buildShop(cat='') {
         <p style="color:var(--text-dim);max-width:36rem;margin-bottom:2rem">${d}</p>
         <nav aria-label="تصفية الفئات">
           <div style="display:flex;gap:.5rem;margin-bottom:2rem;overflow-x:auto;padding-bottom:.5rem" role="tablist">
-            <a href="/shop/" role="tab" aria-selected="${!cat}" style="padding:.5rem 1.125rem;border-radius:9999px;font-size:.8125rem;font-weight:600;text-decoration:none;white-space:nowrap;${!cat?'background:var(--electric);color:white':'background:var(--card);color:var(--text-dim);border:1px solid var(--border)'}">الكل</a>
+            <a href="/cia-store/shop/" role="tab" aria-selected="${!cat}" style="padding:.5rem 1.125rem;border-radius:9999px;font-size:.8125rem;font-weight:600;text-decoration:none;white-space:nowrap;${!cat?'background:var(--electric);color:white':'background:var(--card);color:var(--text-dim);border:1px solid var(--border)'}">الكل</a>
             ${CATEGORIES.map(c=>`<a href="/shop/${c.id}/" role="tab" aria-selected="${cat===c.id}" style="padding:.5rem 1.125rem;border-radius:9999px;font-size:.8125rem;font-weight:600;text-decoration:none;white-space:nowrap;${cat===c.id?'background:var(--electric);color:white':'background:var(--card);color:var(--text-dim);border:1px solid var(--border)'}">${c.icon} ${c.name}</a>`).join('')}
           </div>
         </nav>
@@ -1091,7 +1092,7 @@ function buildProduct(id) {
         <nav aria-label="Breadcrumb">
           <div style="display:flex;align-items:center;gap:.5rem;font-size:.8125rem;color:var(--text-muted);margin-bottom:2rem;flex-wrap:wrap">
             <a href="/" style="color:inherit;text-decoration:none">Home</a><span aria-hidden="true">/</span>
-            <a href="/shop/" style="color:inherit;text-decoration:none">Shop</a><span aria-hidden="true">/</span>
+            <a href="/cia-store/shop/" style="color:inherit;text-decoration:none">Shop</a><span aria-hidden="true">/</span>
             <a href="/shop/${p.cat}/" style="color:inherit;text-decoration:none">${ci?.name||p.cat}</a><span aria-hidden="true">/</span>
             <span style="color:var(--text)" aria-current="page">${p.name}</span>
           </div>
@@ -1236,7 +1237,7 @@ function buildCart() {
         <div aria-hidden="true" style="font-size:4rem;margin-bottom:1.5rem">🛒</div>
         <h2 style="font-size:1.25rem;font-weight:700;color:white;margin-bottom:.5rem">Your Cart is Empty</h2>
         <p class="page-desc" style="margin:0 auto 2rem">Start browsing our premium products!</p>
-        <a href="/shop/" class="btn btn-lg btn-primary">Browse Products →</a>
+        <a href="/cia-store/shop/" class="btn btn-lg btn-primary">Browse Products →</a>
       </div>
       
       <div id="cartPageItems" style="display:none">
@@ -1254,7 +1255,7 @@ function buildCart() {
             <span style="font-size:1rem;font-weight:700;color:var(--text-bright)">Total</span>
             <span style="font-size:1.5rem;font-weight:900;color:var(--electric)" id="cartPageTotalAmount">\$0.00</span>
           </div>
-          <a href="/cart/" class="btn btn-lg btn-primary" style="width:100%;margin-top:1rem" id="cartCheckoutBtn">Proceed to Checkout →</a>
+          <a href="/cia-store/cart/" class="btn btn-lg btn-primary" style="width:100%;margin-top:1rem" id="cartCheckoutBtn">Proceed to Checkout →</a>
           <button class="btn btn-sm btn-outline" style="width:100%;margin-top:.5rem" onclick="Cart.clear();window.renderCartPage&&renderCartPage()">Clear Cart</button>
         </div>
       </div>
@@ -1308,7 +1309,7 @@ function buildAuth() {
     },
     logout() {
       localStorage.removeItem('cia_session');
-      window.location.href = '/';
+      window.location.href = '/cia-store/';
     },
     getSession() {
       try { return JSON.parse(localStorage.getItem('cia_session')); } catch(e) { return null; }
@@ -1365,7 +1366,7 @@ function buildAuth() {
       const session = await API.login(email, pass);
       showToast(\`Welcome back, \${session.name || session.email}!\`, 'success');
       setTimeout(() => {
-        window.location.href = session.role === 'admin' ? '/admin/' : '/dashboard/';
+        window.location.href = session.role === 'admin' ? '/cia-store/admin/' : '/cia-store/dashboard/';
       }, 1000);
     } catch(err) {
       showError(err.message);
@@ -1437,7 +1438,7 @@ function buildAuth() {
         </div>
         
         <div style="text-align:right;margin-bottom:1.5rem">
-          <a href="/auth/" style="color:var(--text-muted);font-size:.75rem;text-decoration:none">Forgot password?</a>
+          <a href="/cia-store/auth/" style="color:var(--text-muted);font-size:.75rem;text-decoration:none">Forgot password?</a>
         </div>
         
         <button id="loginBtn" type="submit" class="btn btn-lg btn-primary" style="width:100%">Sign In</button>
@@ -1445,7 +1446,7 @@ function buildAuth() {
         <div id="loginLoading" class="auth-loading"><div class="spinner"></div> Signing in...</div>
         
         <div style="margin-top:1.5rem;text-align:center">
-          <a href="/auth/register/" class="btn btn-md btn-outline" style="width:100%">📝 Create New Account</a>
+          <a href="/cia-store/auth/register/" class="btn btn-md btn-outline" style="width:100%">📝 Create New Account</a>
         </div>
         
         <div class="auth-divider"><span>or</span></div>
@@ -1637,7 +1638,7 @@ function buildRegister() {
       localStorage.setItem('cia_session', JSON.stringify(session));
       
       btn.textContent = '✅ Account created!';
-      setTimeout(() => { window.location.href = '/dashboard/'; }, 800);
+      setTimeout(() => { window.location.href = '/cia-store/dashboard/'; }, 800);
     } catch(err) {
       showError(err.message);
       btn.disabled = false; btn.textContent = 'Create Account';
@@ -1689,7 +1690,7 @@ function buildRegister() {
         <div class="auth-divider"><span>or</span></div>
         
         <p style="text-align:center;font-size:.875rem;color:var(--text-dim)">
-          Already have an account? <a href="/auth/" style="color:var(--electric);font-weight:600">Sign In</a>
+          Already have an account? <a href="/cia-store/auth/" style="color:var(--electric);font-weight:600">Sign In</a>
         </p>
       </form>
     </div></main>
@@ -1730,7 +1731,7 @@ function buildRegister() {
     const session = { email, name, role: 'user', loginTime: Date.now() };
     localStorage.setItem('cia_session', JSON.stringify(session));
     btn.textContent = '✅ Account created!';
-    setTimeout(() => { window.location.href = '/dashboard/'; }, 800);
+    setTimeout(() => { window.location.href = '/cia-store/dashboard/'; }, 800);
   });
 })();
 </script>`;
@@ -1747,7 +1748,7 @@ function buildRegister() {
         <div style="margin-bottom:1.5rem"><label class="auth-label">Confirm Password</label><input id="regConfirm" type="password" placeholder="Repeat password" class="auth-input" autocomplete="new-password" minlength="6" required></div>
         <button id="regBtn" type="submit" class="btn btn-lg btn-primary" style="width:100%">📝 Create Account</button>
         <div class="auth-divider"><span>or</span></div>
-        <p style="text-align:center;font-size:.875rem;color:var(--text-dim)">Already have an account? <a href="/auth/" style="color:var(--electric);font-weight:600">Sign In</a></p>
+        <p style="text-align:center;font-size:.875rem;color:var(--text-dim)">Already have an account? <a href="/cia-store/auth/" style="color:var(--electric);font-weight:600">Sign In</a></p>
       </form>
     </div></main>
     ${footer()}
@@ -1758,14 +1759,14 @@ function buildAdmin() {
   const ADMIN_DATA_JS = `<script defer>
   window.ADMIN_DEFAULTS = ${JSON.stringify({products: PRODUCTS, categories: CATEGORIES})};
 </script>
-<script src="/admin/admin.js" defer></script>`;
+<script src="/cia-store/admin/admin.js" defer></script>`;
   return html('Admin Dashboard', 'CIA STORE admin panel', `${header()}
     <main id="main-content" role="main"><div class="container page-main" id="adminApp">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem">
         <h1 class="page-title" style="margin:0">⚡ Admin Dashboard</h1>
         <div style="display:flex;gap:.5rem;align-items:center">
           <span id="roleBadge" style="padding:.375rem .875rem;border-radius:9999px;font-size:.75rem;font-weight:600;background:rgba(0,212,255,.1);color:var(--electric);border:1px solid rgba(0,212,255,.2)">👑 Admin</span>
-          <button class="btn btn-sm btn-outline" style="color:var(--red)" onclick="localStorage.removeItem('cia_session');window.location.href='/'">🚪 Sign Out</button>
+          <button class="btn btn-sm btn-outline" style="color:var(--red)" onclick="localStorage.removeItem('cia_session');window.location.href='/cia-store/'">🚪 Sign Out</button>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2rem">
