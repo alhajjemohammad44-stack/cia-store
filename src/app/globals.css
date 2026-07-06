@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --font-heading: 'Orbitron', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 163, 255, 0.3) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: rgba(0, 163, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 163, 255, 0.5);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-dark text-white/90 font-body antialiased;
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(0, 163, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 163, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .bg-gradient-conic {
+    background-image: conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(0, 163, 255, 0.1) 0deg,
+      transparent 60deg,
+      transparent 180deg,
+      rgba(0, 163, 255, 0.05) 240deg,
+      transparent 300deg
+    );
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px rgba(0, 163, 255, 0.3), 0 0 40px rgba(0, 163, 255, 0.1);
+  }
+
+  .glow-box {
+    box-shadow: 0 0 20px rgba(0, 163, 255, 0.15), 0 0 40px rgba(0, 163, 255, 0.05);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .animate-in {
+    animation: fadeIn 0.5s ease-out, slideUp 0.5s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(10, 15, 26, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-hover:hover {
+  background: rgba(10, 15, 26, 0.95);
+  border-color: rgba(0, 163, 255, 0.2);
+}

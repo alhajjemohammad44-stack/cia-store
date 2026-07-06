@@ -1,0 +1,60 @@
+name: Deploy CIA Store to Cloudflare
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    name: Build & Deploy to Cloudflare Pages
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: 🔧 Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: 🏗️ Build Project
+        run: bun run build
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://cia-store.pages.dev' }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '' }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET || 'development-secret-key' }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY || '' }}
+
+      - name: 🗄️ Run Database Migrations
+        run: bun run db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL || '' }}
+
+      - name: 🚀 Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: |
+            npx wrangler pages deploy .vercel/output/static \
+              --project-name cia-store \
+              --branch ${{ github.ref_name == 'main' && 'main' || 'staging' }}
+
+      - name: ✅ Health Check
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" https://cia-store.pages.dev | grep -q "200" && echo "✅ Deployment healthy" || echo "⚠️ Health check failed"
