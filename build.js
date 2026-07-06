@@ -8,9 +8,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const SITE_URL = 'https://cia-store-arabic.surge.sh';
+const SITE_URL = 'https://alhajjemohammad44-stack.github.io/cia-store';
 const SITE_NAME = 'CIA STORE';
 const SITE_DESC = 'متجر ألعاب رقمي — حسابات، Robux، منتجات Blox Fruits. توصيل فوري، أفضل الأسعار.';
+
+const BASE_PATH = '/cia-store/';
 
 let CATEGORIES = [];
 
@@ -461,6 +463,9 @@ ${meta(title,desc,path)}
 <style>${CRITICAL_CSS}${cartCss()}</style>
 ${extra}
 ${jsonLd()}
+<script>
+(function(){var p=window.location.pathname.match(/^\/[^\/]+\//);window.BASE=p?p[0]:'/'})();
+</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">تخطى إلى المحتوى الرئيسي</a>
@@ -470,6 +475,8 @@ ${CART_HTML}
 document.querySelector('.header')&&document.querySelector('.header').classList.add('scrolled');
 // Smooth scroll for skip link
 document.querySelector('.skip-link')?.addEventListener('click',function(e){e.preventDefault();document.querySelector('#main-content')?.focus()});
+// Fix internal links for subdirectory deployments
+(function(){if(window.BASE&&window.BASE!=='/'){document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href');if(h&&h.startsWith('/')&&!h.startsWith('//')&&h.indexOf('://')<0&&!h.startsWith('/'+location.hostname)){a.setAttribute('href',window.BASE+h.substring(1))}})}})();
 </script>
 ${CART_JS}
 <script defer>
