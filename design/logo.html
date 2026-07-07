@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CIA Store — Logo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A1A;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:system-ui,sans-serif;flex-direction:column;gap:3rem;padding:2rem}
+.logo-container{display:flex;flex-direction:column;align-items:center;gap:2rem}
+.logo{width:400px;height:160px;position:relative;display:flex;align-items:center;justify-content:center}
+.logo svg{width:100%;height:100%}
+.versions{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center}
+.version-card{background:linear-gradient(135deg,#0F0F28,#151540);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2rem;text-align:center;width:280px}
+.version-card h3{color:#00D4FF;font-size:.875rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem;font-family:'Orbitron',monospace}
+.badge{display:inline-block;padding:.25rem .75rem;border-radius:999px;font-size:.75rem;font-weight:600;margin-top:1rem}
+.badge-primary{background:rgba(0,212,255,.15);color:#00D4FF}
+.badge-purple{background:rgba(176,38,255,.15);color:#B026FF}
+.badge-gold{background:rgba(255,215,0,.15);color:#FFD700}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="logo-container">
+  <div class="version-card">
+    <h3>🅰️ الإصدار 1 — كامل</h3>
+    <div class="logo">
+      <svg viewBox="0 0 400 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00D4FF"/>
+            <stop offset="50%" stop-color="#00F5D4"/>
+            <stop offset="100%" stop-color="#B026FF"/>
+          </linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <path d="M200 20 L340 70 L340 110 Q340 140 200 145 Q60 140 60 110 L60 70 Z" fill="url(#g1)" opacity="0.08" stroke="url(#g1)" stroke-width="1.5"/>
+        <text x="65" y="110" font-family="'Orbitron',monospace" font-size="90" font-weight="900" fill="url(#g1)" filter="url(#glow)">C</text>
+        <text x="140" y="110" font-family="'Orbitron',monospace" font-size="90" font-weight="900" fill="#00F5D4" filter="url(#glow)">I</text>
+        <text x="205" y="110" font-family="'Orbitron',monospace" font-size="90" font-weight="900" fill="url(#g1)" filter="url(#glow)">A</text>
+        <text x="200" y="135" text-anchor="middle" font-family="'Inter',sans-serif" font-size="11" fill="rgba(255,255,255,0.5)" letter-spacing="4">GAMING STORE</text>
+        <circle cx="290" cy="60" r="3" fill="#00D4FF" opacity="0.6"/>
+        <circle cx="310" cy="50" r="2" fill="#00F5D4" opacity="0.4"/>
+        <circle cx="325" cy="70" r="2.5" fill="#B026FF" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="badge badge-primary">Neon Wordmark</span>
+  </div>
+  <div class="version-card">
+    <h3>🅱️ الإصدار 2 — أيقونة</h3>
+    <div class="logo" style="height:120px">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#B026FF"/></linearGradient>
+          <filter id="glow2"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <path d="M100 10 L175 45 L175 120 L100 155 L25 120 L25 45 Z" stroke="url(#g3)" stroke-width="3" fill="url(#g3)" fill-opacity="0.05" filter="url(#glow2)"/>
+        <rect x="85" y="60" width="30" height="40" rx="4" fill="url(#g3)" opacity="0.9"/>
+        <rect x="70" y="72" width="60" height="16" rx="4" fill="url(#g3)" opacity="0.9"/>
+        <circle cx="95" cy="80" r="6" fill="#0A0A1A"/>
+        <circle cx="95" cy="70" r="2" fill="#00D4FF"/>
+        <circle cx="95" cy="90" r="2" fill="#00D4FF"/>
+        <circle cx="85" cy="80" r="2" fill="#00D4FF"/>
+        <circle cx="105" cy="80" r="2" fill="#00D4FF"/>
+      </svg>
+    </div>
+    <span class="badge badge-purple">Hex Controller</span>
+  </div>
+  <div class="version-card">
+    <h3>🅲 الإصدار 3 — مصغر</h3>
+    <div class="logo" style="height:80px">
+      <svg viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#00F5D4"/></linearGradient>
+          <filter id="glow3"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <text x="200" y="60" text-anchor="middle" font-family="'Orbitron',monospace" font-size="48" font-weight="900" fill="url(#g4)" filter="url(#glow3)" letter-spacing="8">CIA</text>
+        <text x="200" y="82" text-anchor="middle" font-family="'Inter',sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" letter-spacing="6">GAMING STORE</text>
+      </svg>
+    </div>
+    <span class="badge badge-gold">Minimal</span>
+  </div>
+</div>
+<p style="color:rgba(255,255,255,0.3);font-size:.8125rem;margin-top:2rem">CIA STORE — Logo Set</p>
+</body>
+</html>

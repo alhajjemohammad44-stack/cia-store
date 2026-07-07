@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CIA Store — UI Components</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A1A;--bg2:#0D0D24;--bg3:#111133;
+  --card:#0F0F28;--card-hover:#151540;
+  --electric:#00D4FF;--cyan:#00F5D4;--purple:#B026FF;
+  --orange:#FF6B35;--gold:#FFD700;--green:#00FF87;--red:#FF3355;
+  --border:rgba(255,255,255,0.08);--border-light:rgba(255,255,255,0.15);
+  --text:rgba(255,255,255,0.95);--text-dim:rgba(255,255,255,0.7);--text-muted:rgba(255,255,255,0.45);
+  --radius:16px;--radius-sm:10px;--radius-lg:24px;
+  --gradient-primary:linear-gradient(135deg,#00D4FF,#00F5D4);
+  --gradient-purple:linear-gradient(135deg,#B026FF,#FF26B0);
+  --gradient-fire:linear-gradient(135deg,#FF6B35,#FFD700);
+  --gradient-gold:linear-gradient(135deg,#FFD700,#FFB800);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);padding:2rem}
+.container{max-width:1100px;margin:0 auto}
+h1{font-family:'Orbitron',sans-serif;text-align:center;margin-bottom:.25rem}
+h1 .g{background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{text-align:center;color:var(--text-muted);font-size:.875rem;margin-bottom:2.5rem}
+h2{font-family:'Orbitron',sans-serif;font-size:1.125rem;margin:2rem 0 1rem;color:var(--electric);display:flex;align-items:center;gap:.5rem}
+h2 .count{font-size:.75rem;background:rgba(0,212,255,.1);padding:.125rem .5rem;border-radius:999px;color:var(--text-muted);font-family:monospace}
+h3{font-size:.9375rem;margin:1.25rem 0 .625rem;color:var(--text-dim)}
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:2rem}
+.demo-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+.demo-card h4{font-size:.8125rem;font-weight:600;color:var(--text-muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;font-size:.875rem;border:none;cursor:pointer;transition:all .2s;text-decoration:none;font-family:system-ui,sans-serif;white-space:nowrap}
+.btn-sm{padding:.5rem 1rem;font-size:.8125rem}
+.btn-lg{padding:1rem 2rem;font-size:1rem}
+.btn-primary{background:var(--gradient-primary);color:#0A0A1A}
+.btn-primary:hover{box-shadow:0 4px 20px rgba(0,212,255,.3);transform:translateY(-1px)}
+.btn-purple{background:var(--gradient-purple);color:#0A0A1A}
+.btn-fire{background:var(--gradient-fire);color:#0A0A1A}
+.btn-gold{background:var(--gradient-gold);color:#0A0A1A}
+.btn-outline{background:transparent;border:1px solid var(--border-light);color:var(--text)}
+.btn-outline:hover{border-color:var(--electric);color:var(--electric)}
+.btn-ghost{background:transparent;color:var(--text-dim)}
+.btn-ghost:hover{background:rgba(255,255,255,.05);color:var(--text)}
+.btn-icon{width:44px;height:44px;padding:0;border-radius:50%;font-size:1.25rem}
+.btn-glow{background:var(--gradient-primary);color:#0A0A1A;position:relative}
+.btn-glow::before{content:'';position:absolute;inset:-3px;border-radius:calc(var(--radius-sm)+3px);background:var(--gradient-primary);opacity:0;z-index:-1;filter:blur(10px);transition:opacity .2s}
+.btn-glow:hover::before{opacity:.6}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-group{display:flex;gap:.5rem;flex-wrap:wrap}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;transition:all .2s}
+.card:hover{background:var(--card-hover);border-color:var(--border-light);transform:translateY(-2px)}
+.card-glow{border-color:rgba(0,212,255,.15)}
+.card-glow:hover{border-color:rgba(0,212,255,.3)}
+
+/* Inputs */
+.input{padding:.75rem 1rem;border-radius:var(--radius-sm);background:var(--bg2);border:1px solid var(--border);color:var(--text);font-size:.875rem;width:100%;outline:none;transition:border-color .2s;font-family:system-ui,sans-serif}
+.input:focus{border-color:var(--electric);box-shadow:0 0 0 3px rgba(0,212,255,.1)}
+.input-group{display:flex;flex-direction:column;gap:.375rem}
+.input-label{font-size:.8125rem;color:var(--text-dim);font-weight:600}
+.input-helper{font-size:.75rem;color:var(--text-muted)}
+.input-error{font-size:.75rem;color:var(--red)}
+
+/* Badges */
+.badge{display:inline-flex;align-items:center;padding:.25rem .75rem;border-radius:999px;font-size:.75rem;font-weight:600;gap:.375rem}
+.badge-electric{background:rgba(0,212,255,.1);color:var(--electric)}
+.badge-purple{background:rgba(176,38,255,.1);color:var(--purple)}
+.badge-gold{background:rgba(255,215,0,.1);color:var(--gold)}
+.badge-green{background:rgba(0,255,135,.1);color:var(--green)}
+.badge-red{background:rgba(255,51,85,.1);color:var(--red)}
+.badge-orange{background:rgba(255,107,53,.1);color:var(--orange)}
+
+/* Tabs */
+.tabs{display:flex;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
+.tab{padding:.625rem 1.25rem;font-size:.8125rem;font-weight:600;color:var(--text-dim);cursor:pointer;transition:all .2s;border:none;background:transparent;font-family:system-ui,sans-serif}
+.tab:hover{color:var(--text)}
+.tab.active{background:rgba(0,212,255,.1);color:var(--electric)}
+
+/* Alerts */
+.alert{padding:1rem 1.25rem;border-radius:var(--radius-sm);font-size:.875rem;line-height:1.6;margin-bottom:.75rem}
+.alert-info{background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.15);color:var(--electric)}
+.alert-success{background:rgba(0,255,135,.06);border:1px solid rgba(0,255,135,.15);color:var(--green)}
+.alert-warning{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.15);color:var(--gold)}
+.alert-error{background:rgba(255,51,85,.06);border:1px solid rgba(255,51,85,.15);color:var(--red)}
+
+/* Progress */
+.progress{height:6px;background:var(--bg2);border-radius:999px;overflow:hidden}
+.progress-bar{height:100%;background:var(--gradient-primary);border-radius:999px;transition:width .3s}
+
+/* Switch */
+.switch{position:relative;width:44px;height:24px;display:inline-block}
+.switch input{opacity:0;width:0;height:0}
+.switch .slider{position:absolute;cursor:pointer;inset:0;background:var(--bg2);border-radius:999px;transition:all .2s;border:1px solid var(--border)}
+.switch .slider::before{content:'';position:absolute;height:18px;width:18px;left:2px;bottom:2px;background-color:var(--text-dim);border-radius:50%;transition:all .2s}
+.switch input:checked+.slider{background:rgba(0,212,255,.2);border-color:var(--electric)}
+.switch input:checked+.slider::before{transform:translateX(20px);background:var(--electric)}
+
+hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h1><span class="g">CIA STORE</span></h1>
+  <p class="sub">🎨 مكتبة مكونات واجهة المستخدم — System Design</p>
+
+  <h2>🔘 <span>Buttons</span> <span class="count">11</span></h2>
+  <div class="demo-grid">
+    <div class="demo-card"><h4>الأحجام</h4><div class="btn-group"><button class="btn btn-sm btn-primary">صغير</button><button class="btn btn-primary">عادي</button><button class="btn btn-lg btn-primary">كبير</button><button class="btn btn-icon btn-primary">⚡</button></div></div>
+    <div class="demo-card"><h4>الألوان</h4><div class="btn-group"><button class="btn btn-primary">⚡ أساسي</button><button class="btn btn-purple">💜 بنفسجي</button><button class="btn btn-fire">🔥 ناري</button><button class="btn btn-gold">⭐ ذهبي</button></div></div>
+    <div class="demo-card"><h4>الأنماط</h4><div class="btn-group"><button class="btn btn-primary">🛒 ممتلئ</button><button class="btn btn-outline">مفرغ</button><button class="btn btn-ghost">شفاف</button><button class="btn btn-glow">متوهج</button><button class="btn btn-primary" disabled>معطل</button></div></div>
+  </div>
+
+  <h2>🃏 <span>Cards</span> <span class="count">3</span></h2>
+  <div class="demo-grid">
+    <div class="card"><h3 style="color:var(--text-bright);font-size:1rem;margin:0 0 .5rem">بطاقة عادية</h3><p style="font-size:.875rem;color:var(--text-muted)">هذه بطاقة مع hover تأثير رفع وظل.</p></div>
+    <div class="card card-glow"><h3 style="color:var(--electric);font-size:1rem;margin:0 0 .5rem">بطاقة متوهجة ⚡</h3><p style="font-size:.875rem;color:var(--text-muted)">بطاقة مع glow border كهربائي.</p></div>
+    <div class="card" style="border-color:rgba(176,38,255,.15)"><h3 style="color:var(--purple);font-size:1rem;margin:0 0 .5rem">بطاقة بنفسجية 💜</h3><p style="font-size:.875rem;color:var(--text-muted)">بطاقة مع hover border بنفسجي.</p></div>
+  </div>
+
+  <h2>🏷️ <span>Badges</span> <span class="count">6</span></h2>
+  <div class="demo-grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
+    <span class="badge badge-electric">⚡ كهربائي</span>
+    <span class="badge badge-purple">💜 بنفسجي</span>
+    <span class="badge badge-gold">⭐ ذهبي</span>
+    <span class="badge badge-green">✅ متوفر</span>
+    <span class="badge badge-red">❌ غير متوفر</span>
+    <span class="badge badge-orange">🔥 مشهور</span>
+  </div>
+
+  <h2>📝 <span>Forms</span> <span class="count">3</span></h2>
+  <div class="demo-grid">
+    <div class="demo-card">
+      <div class="input-group"><label class="input-label">البريد الإلكتروني</label><input class="input" type="email" placeholder="your@email.com"><span class="input-helper">لن نشارك بريدك مع أي جهة</span></div>
+    </div>
+    <div class="demo-card">
+      <div class="input-group"><label class="input-label">كلمة المرور</label><input class="input" type="password" placeholder="••••••••"></div>
+    </div>
+    <div class="demo-card">
+      <div class="input-group"><label class="input-label">حقل مع خطأ</label><input class="input" type="text" value="قيمة غير صحيحة" style="border-color:var(--red)"><span class="input-error">✗ هذا الحقل مطلوب</span></div>
+    </div>
+  </div>
+
+  <h2>🔔 <span>Alerts</span> <span class="count">4</span></h2>
+  <div class="alert alert-info">ℹ️ هذه معلومات عامة.</div>
+  <div class="alert alert-success">✅ تمت العملية بنجاح!</div>
+  <div class="alert alert-warning">⚠️ يرجى مراجعة الإعدادات.</div>
+  <div class="alert alert-error">❌ حدث خطأ! حاول مرة أخرى.</div>
+
+  <h2>📊 <span>Extras</span> <span class="count">3</span></h2>
+  <div class="demo-grid">
+    <div class="demo-card"><h4>Tabs</h4><div class="tabs"><button class="tab active">الكل</button><button class="tab">حسابات</button><button class="tab">Robux</button><button class="tab">Blox Fruits</button></div></div>
+    <div class="demo-card"><h4>Progress</h4><div class="progress" style="margin-top:.5rem"><div class="progress-bar" style="width:65%"></div></div><p style="font-size:.75rem;color:var(--text-muted);margin-top:.375rem">65% مكتمل</p></div>
+    <div class="demo-card"><h4>Switch</h4><label class="switch"><input type="checkbox" checked><span class="slider"></span></label><span style="font-size:.8125rem;color:var(--text-dim);margin-right:.5rem">وضع المطور</span></div>
+  </div>
+
+  <hr>
+  <p style="text-align:center;color:var(--text-muted);font-size:.8125rem">CIA STORE — UI Components • خذ Screenshot أو انسخ CSS مباشرة</p>
+</div>
+</body>
+</html>

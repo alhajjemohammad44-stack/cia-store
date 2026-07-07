@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CIA Store — Design Hub</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A1A;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.95);display:flex;flex-direction:column;align-items:center;padding:3rem 1.5rem;min-height:100vh}
+h1{font-family:'Orbitron',sans-serif;font-size:2.5rem;font-weight:900;text-align:center;margin-bottom:.5rem}
+h1 .g{background:linear-gradient(135deg,#00D4FF,#00F5D4,#B026FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{color:rgba(255,255,255,0.4);margin-bottom:3rem;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;width:100%}
+.card{background:linear-gradient(135deg,#0F0F28,#151540);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:2rem;text-decoration:none;color:inherit;transition:all .3s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px);border-color:rgba(0,212,255,0.2);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+.card .num{font-family:'Orbitron',sans-serif;font-size:.75rem;color:rgba(255,255,255,0.2);margin-bottom:.5rem}
+.card .icon{font-size:2.5rem;margin-bottom:1rem}
+.card h2{font-size:1.25rem;font-weight:700;margin-bottom:.5rem}
+.card p{font-size:.875rem;color:rgba(255,255,255,0.5);line-height:1.6}
+.card .tag{display:inline-block;padding:.25rem .625rem;border-radius:999px;font-size:.6875rem;font-weight:600;margin-top:1rem}
+.footer{text-align:center;color:rgba(255,255,255,0.2);font-size:.8125rem;margin-top:3rem}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1><span class="g">CIA STORE</span> — مركز التصميم</h1>
+  <p class="sub">جميع التصاميم كاملة • افتح أي ملف من <code>design/</code> في المتصفح</p>
+
+  <div class="grid">
+    <a class="card" href="logo.html">
+      <div class="num">#1</div>
+      <div class="icon">🎨</div>
+      <h2>Logo</h2>
+      <p>3 إصدارات SVG: لوجو كامل، أيقونة Hex Controller، مصغر</p>
+      <span class="tag" style="background:rgba(0,212,255,.1);color:#00D4FF">SVG</span>
+    </a>
+    <a class="card" href="banner.html">
+      <div class="num">#2</div>
+      <div class="icon">🖼️</div>
+      <h2>Banners</h2>
+      <p>هيرو بانر (1200×400)، سوشيال مربع (1080×1080)، أفقي (1200×630)</p>
+      <span class="tag" style="background:rgba(176,38,255,.1);color:#B026FF">HTML/CSS</span>
+    </a>
+    <a class="card" href="cip.html">
+      <div class="num">#3</div>
+      <div class="icon">📇</div>
+      <h2>CIP</h2>
+      <p>بطاقة أعمال (وجه + ظهر)، ورق رسمي، ظرف بريدي — هوية كاملة</p>
+      <span class="tag" style="background:rgba(255,215,0,.1);color:#FFD700">Corporate</span>
+    </a>
+    <a class="card" href="slides.html">
+      <div class="num">#4</div>
+      <div class="icon">📊</div>
+      <h2>Slides</h2>
+      <p>8 شرائح عرض تقديمي مع Chart.js، تنقل بالكيبورد، تصميم ليلي</p>
+      <span class="tag" style="background:rgba(0,255,135,.1);color:#00FF87">Pitch Deck</span>
+    </a>
+    <a class="card" href="social-photos.html">
+      <div class="num">#5</div>
+      <div class="icon">📱</div>
+      <h2>Social Photos</h2>
+      <p>إنستغرام (بوست + ستوري)، فيسبوك، تويتر — جميع المنصات</p>
+      <span class="tag" style="background:rgba(255,107,53,.1);color:#FF6B35">Social</span>
+    </a>
+    <a class="card" href="ui-components.html">
+      <div class="num">#6</div>
+      <div class="icon">🧩</div>
+      <h2>UI Components</h2>
+      <p>أزرار، بطاقات، نماذج، شارات، تنبيهات، تبويبات — كل المكونات</p>
+      <span class="tag" style="background:rgba(255,38,176,.1);color:#FF26B0">Design System</span>
+    </a>
+    <a class="card" href="#" onclick="return false" style="grid-column:1/-1;opacity:0.7;cursor:default">
+      <div class="num">#7</div>
+      <div class="icon">🎯</div>
+      <h2>Colors + Fonts</h2>
+      <p>مدمجة في صفحة UI Components (#6) — 8 ألوان رئيسية + Orbitron/Inter</p>
+      <span class="tag" style="background:rgba(0,212,255,.1);color:#00D4FF">Tokens</span>
+    </a>
+  </div>
+  <div class="footer">CIA STORE © 2026</div>
+</body>
+</html>
