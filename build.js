@@ -94,6 +94,17 @@ a{color:inherit;text-decoration:none}
 .glow{text-shadow:0 0 30px rgba(0,212,255,0.3),0 0 60px rgba(0,212,255,0.1)}
 .glow-purple{text-shadow:0 0 30px rgba(176,38,255,0.3),0 0 60px rgba(176,38,255,0.1)}
 .glow-gold{text-shadow:0 0 30px rgba(255,215,0,0.3),0 0 60px rgba(255,215,0,0.1)}
+
+/* UI/UX Pro Max Improvements */
+button,.btn,a[href],input,select,textarea,label{cursor:pointer}
+button:disabled,.btn:disabled{cursor:not-allowed;opacity:.5}
+:focus-visible{outline:2px solid var(--electric);outline-offset:2px;border-radius:var(--radius-sm)}
+a:focus-visible,.btn:focus-visible{border-radius:var(--radius-sm)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-delay:-1ms!important;animation-duration:1ms!important;animation-iteration-count:1!important;transition-delay:-1ms!important;transition-duration:1ms!important;scroll-behavior:auto!important}}
+button,.btn,input,select,textarea,label,a{touch-action:manipulation}
+/* Smooth hover transitions for all interactive */
+button,.btn,a{transition:all .2s ease}
+a:hover{opacity:.85}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
   font-weight:700;border-radius:var(--radius-sm);border:none;cursor:pointer;

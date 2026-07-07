@@ -71,6 +71,17 @@ a{color:inherit;text-decoration:none}
 .glow{text-shadow:0 0 30px rgba(0,212,255,0.3),0 0 60px rgba(0,212,255,0.1)}
 .glow-purple{text-shadow:0 0 30px rgba(176,38,255,0.3),0 0 60px rgba(176,38,255,0.1)}
 .glow-gold{text-shadow:0 0 30px rgba(255,215,0,0.3),0 0 60px rgba(255,215,0,0.1)}
+
+/* UI/UX Pro Max Improvements */
+button,.btn,a[href],input,select,textarea,label{cursor:pointer}
+button:disabled,.btn:disabled{cursor:not-allowed;opacity:.5}
+:focus-visible{outline:2px solid var(--electric);outline-offset:2px;border-radius:var(--radius-sm)}
+a:focus-visible,.btn:focus-visible{border-radius:var(--radius-sm)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-delay:-1ms!important;animation-duration:1ms!important;animation-iteration-count:1!important;transition-delay:-1ms!important;transition-duration:1ms!important;scroll-behavior:auto!important}}
+button,.btn,input,select,textarea,label,a{touch-action:manipulation}
+/* Smooth hover transitions for all interactive */
+button,.btn,a{transition:all .2s ease}
+a:hover{opacity:.85}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
   font-weight:700;border-radius:var(--radius-sm);border:none;cursor:pointer;
@@ -794,37 +805,5 @@ window.loadCategories = function() {
 })();
 </script>
 
-/* ═══ CIA STORE — Live GitHub Data ═══ */
-// Load products from GitHub so customers see latest immediately
-var GH_URL = "https://raw.githubusercontent.com/alhajjemohammad44-stack/cia-store/main/data/products.json";
-(function(){
-  fetch(GH_URL).then(function(r){ if(r.ok) return r.json(); }).then(function(data){
-    if(data && data.products && data.products.length > 0){
-      try{localStorage.setItem("cia_github_products",JSON.stringify(data.products));}catch(e){}
-      try{localStorage.setItem("cia_github_categories",JSON.stringify(data.categories));}catch(e){}
-      // Re-render if shop page is open
-      if(window.renderProducts) window.renderProducts();
-    }
-  }).catch(function(){});
-})();
-
-// Enhanced loadProducts - GitHub data takes priority
-var _lp = window.loadProducts || function(){return [];};
-window.loadProducts = function(){
-  try{
-    var gh = JSON.parse(localStorage.getItem("cia_github_products") || "[]");
-    if(gh.length > 0) return gh;
-  }catch(e){}
-  return _lp();
-};
-
-var _lc = window.loadCategories || function(){return [];};
-window.loadCategories = function(){
-  try{
-    var gh = JSON.parse(localStorage.getItem("cia_github_categories") || "[]");
-    if(gh.length > 0) return gh;
-  }catch(e){}
-  return _lc();
-};
 
 </body></html>
